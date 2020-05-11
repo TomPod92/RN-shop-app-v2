@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import rootReducer from './redux/store';
-import NavigatorContainer from './navigation/NavigationContainer.js';
+import AppNavigator from './navigation/AppNavigator.js';
 import ShopNavigator from './navigation/ShopNavigator.js';
 
 // jezeli chcemy redux devtoolsy odkomentowac te dwie linie
@@ -31,7 +31,7 @@ const App = () => {
   }
   return (
     <Provider store={store}>
-      <NavigatorContainer />
+      <AppNavigator />
     </Provider>
   );
 }

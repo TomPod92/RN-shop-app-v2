@@ -1,9 +1,15 @@
-import { SIGNUP, LOGIN, LOGOUT, AUTHENTICATE } from '../types.js';
+import { SIGNUP, LOGIN, LOGOUT, AUTHENTICATE, SET_DID_TRY_AUTOLOGIN } from '../types.js';
 import { AsyncStorage } from 'react-native';
 
 import env from '../../env.js';
 
 let timer;
+
+export const setDidTryAutoLogin = () => {
+  return {
+    type: SET_DID_TRY_AUTOLOGIN
+  }
+}
 
 export const authenticate = (userId, token, expiryTime) => {
   return dispatch => {

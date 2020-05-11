@@ -43,19 +43,34 @@ const OrdersScreen = () => {
     );
 }
 
-OrdersScreen.navigationOptions = navData => {
+export const ordersScreenOptions = navData => {
     return {
         headerTitle: 'Your Orders',
-        headerLeft: (
-            (
-                <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-                    <Item title="Menu" iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'} onPress={() => {navData.navigation.toggleDrawer()}} />
-                </HeaderButtons>
-            )
+        headerLeft: () => (
+            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+                <Item title="Menu" iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'} onPress={() => {navData.navigation.toggleDrawer()}} />
+            </HeaderButtons>
         ),
 
     }
 }
+
+// export const ordersScreenOptions = navData => {
+//     return {
+//       headerTitle: 'Your Orders',
+//       headerLeft: () => (
+//         <HeaderButtons HeaderButtonComponent={HeaderButton}>
+//           <Item
+//             title="Menu"
+//             iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
+//             onPress={() => {
+//               navData.navigation.toggleDrawer();
+//             }}
+//           />
+//         </HeaderButtons>
+//       )
+//     };
+//   };
 
 const styles = StyleSheet.create({
     centered: {

@@ -48,17 +48,17 @@ const UserProductsScreen = (props) => {
     )
 }
 
-UserProductsScreen.navigationOptions = navData => {
+export const userProductsScreenOptions = navData => {
     return {
         headerTitle: "Your Products",
-        headerLeft: (
+        headerLeft: () => (
             (
                 <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
                     <Item title="Menu" iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'} onPress={() => {navData.navigation.toggleDrawer()}} />
                 </HeaderButtons>
             )
         ),
-        headerRight: (
+        headerRight: () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
                 <Item title="Add" iconName={Platform.OS === 'android' ? 'md-create' : 'ios-create'} onPress={() => {navData.navigation.navigate("EditProduct")}} />
             </HeaderButtons>

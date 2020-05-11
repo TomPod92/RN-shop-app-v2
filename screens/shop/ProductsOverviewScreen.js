@@ -30,10 +30,10 @@ const ProductsOverviewScreen = (props) => {
     );
 // ----------------------------------------------------------------------------
     useEffect(() => {
-        const willFocus = props.navigation.addListener('willFocus', loadProducts);
+        const unsubscribe = props.navigation.addListener('focus', loadProducts);
 
         return () => {
-            willFocus.remove();
+            unsubscribe();
         }
 
     }, [loadProducts]);
@@ -89,18 +89,18 @@ const ProductsOverviewScreen = (props) => {
         />
     );
 };
-
-ProductsOverviewScreen.navigationOptions = (navData) => {
+//------------------------------------------------------
+export const productsOverviewScreenOptions = (navData) => {
     return {
         headerTitle: 'All products',
-        headerLeft: (
+        headerLeft: () => (
             (
                 <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
                     <Item title="Menu" iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'} onPress={() => {navData.navigation.toggleDrawer()}} />
                 </HeaderButtons>
             )
         ),
-        headerRight: (
+        headerRight: () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
                 <Item title="Cart" iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'} onPress={() => {navData.navigation.navigate("Cart")}} />
             </HeaderButtons>

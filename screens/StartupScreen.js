@@ -2,18 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { StyleSheet, View, Text, ActivityIndicator, AsyncStorage } from 'react-native';
 
-import { authenticate } from '../redux/actions/authActions.js';
+import { authenticate, setDidTryAutoLogin } from '../redux/actions/authActions.js';
 import colors from '../constants/colors.js';
 
 const StartupScreen = (props) => {
     const dispatch = useDispatch();
 
+    // spróbuj zalogować użytkownika
     useEffect(() => {
         const tryLogin = async () => {
             const userData = await AsyncStorage.getItem('userData');
 
+            // jeżeli na urządzeniu nie ma tokena przenieś nas na "Auth screen"
             if(!userData) {
-                props.navigation.navigate('Auth');
+                // props.navigation.navigate('Auth');
+                dispatch(setDidTryAutoLogin());
                 return;
             }
 
@@ -21,15 +24,18 @@ const StartupScreen = (props) => {
             const { token, userId, expirationDate } = transformedData;
             const expDate = new Date(expirationDate);
 
+            // jeżeli znaleźliśmy token ale już wygasł przenieś nas na "auth screen"
             if(expDate <= new Date() || !token || !userId) {
-                props.navigation.navigate('Auth');
+                // props.navigation.navigate('Auth');
+                dispatch(setDidTryAutoLogin());
                 return;
             }
+            const expiryTime = new Date(expirationDate).getTime() - new Date().getTime();
 
-            const expiryTime = expirationDate.getTime() - new Date().getTime();
-
-            props.navigation.navigate('Shop');
+            // jeżeli znaleźliśmy token i jet on ważny, przenieś nas na "shop screen"
+            // props.navigation.navigate('Shop');
             
+            // wyslij token do reduxa
             dispatch(authenticate(userId, token, expiryTime));
         };
         tryLogin();

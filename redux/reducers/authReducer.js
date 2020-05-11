@@ -1,8 +1,9 @@
-import { SIGNUP, LOGIN, LOGOUT, AUTHENTICATE } from '../types.js';
+import { SIGNUP, LOGIN, LOGOUT, AUTHENTICATE, SET_DID_TRY_AUTOLOGIN } from '../types.js';
 
 const initialState = {
     token: null,
-    userId: null
+    userId: null,
+    didTryAutoLogin: false
 }
 
 const authReducer = (state = initialState, action) => {
@@ -10,10 +11,19 @@ const authReducer = (state = initialState, action) => {
         case AUTHENTICATE:
             return {
                 token: action.token,
-                userId: action.userId
+                userId: action.userId,
+                didTryAutoLogin: true
+            }
+        case SET_DID_TRY_AUTOLOGIN:
+            return {
+                ...state,
+                didTryAutoLogin: true
             }
         case LOGOUT:
-            return initialState;
+            return {
+                ...initialState,
+                didTryAutoLogin: true
+            }
         // case SIGNUP:
         //     return {
         //         token: action.token,

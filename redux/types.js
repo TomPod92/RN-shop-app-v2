@@ -13,3 +13,4 @@ export const SIGNUP ='SIGNUP';
 export const LOGIN ='LOGIN';
 export const LOGOUT ='LOGOUT';
 export const AUTHENTICATE ='AUTHENTICATE';
+export const SET_DID_TRY_AUTOLOGIN ='SET_DID_TRY_AUTOLOGIN';
